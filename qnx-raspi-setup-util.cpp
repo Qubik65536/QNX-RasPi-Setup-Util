@@ -4,14 +4,22 @@
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/screen/screen.hpp>
 #include <iostream>
+#include <unistd.h>
 
-const bool TESTING_MODE = true;
+const bool TESTING_MODE = false;
 
 const std::string GRAPHICS_CONFIG_PATH = "/system/lib/graphics/rpi4-drm/graphics-rpi4.conf";
 const std::string TEST_GRAPHICS_CONFIG_PATH = "test-graphics-rpi4.conf";
 
 int main()
 {
+    // This program can only be run as root.
+    if (geteuid() != 0)
+    {
+        std::cerr << "This program must be run as root. Please use su to switch to root user." << std::endl;
+        return 1;
+    }
+
     if (TESTING_MODE)
     {
         std::cout << "Running in TESTING MODE" << std::endl;
@@ -20,9 +28,6 @@ int main()
     if (TESTING_MODE || FirstRunUtils::isFirstRun())
     {
         std::cout << "First time run detected. Performing initial setup..." << std::endl;
-
-        // Create a temp folder to hold conf file.
-        std::string temp_dir = "/tmp/qnx-raspi-setup";
 
         // Initialize SetupUtils for configuring graphics config.
         SetupUtils setupUtils(TESTING_MODE ? TEST_GRAPHICS_CONFIG_PATH : GRAPHICS_CONFIG_PATH);
@@ -40,6 +45,24 @@ int main()
         // TODO: Handle first-time setup tasks here.
 
         if (TESTING_MODE) exit(0); // Exit after first run setup in testing mode.
+
+        // Reboot the RasPi to apply changes.
+        std::cout << "You need to reboot the system for changes to take effect." << std::endl;
+        std::cout << "Enter 'y' to reboot now, or any other key to exit without rebooting: ";
+        char choice;
+        std::cin >> choice;
+        if (choice == 'y' || choice == 'Y')
+        {
+            std::cout << "Rebooting..." << std::endl;
+            // QNX uses 'shutdown' to power off the system.
+            // The Raspberry Pi reboots automatically after shutdown.
+            system("/system/bin/shutdown");
+            exit(0);
+        }
+        else
+        {
+            std::cout << "Exiting without reboot. Please remember to reboot later." << std::endl;
+        }
     }
 
     using namespace ftxui;
