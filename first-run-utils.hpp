@@ -17,6 +17,16 @@ namespace FirstRunUtils
     bool isFirstRun();
 
     /**
+     * @brief Perform first-time setup for hostname.
+     * 
+     * This function allows user to set up their preferred hostname
+     * through interactive prompts.
+     * 
+     * @return std::string The set up hostname.
+     */
+    std::string firstTimeSetupHostname();
+
+    /**
      * @brief Perform first-time setup for keyboard layout.
      *
      * This function allows user to set up their preferred keyboard layout

@@ -2,8 +2,7 @@
 #define SETUP_UTILS_HPP
 
 #include "config-editor.hpp"
-#include <string>
-#include <vector>
+#include <iostream>
 
 class SetupUtils
 {
@@ -17,6 +16,7 @@ private:
      * @brief Configuration editor instance for managing the config file.
      */
     ConfigEditor configEditor;
+
 public:
     /**
      * @brief Constructor that initializes the setup utility with a configuration file path.
@@ -34,6 +34,29 @@ public:
      * @return true if the configuration was saved successfully, false otherwise.
      */
     bool saveConfig();
+
+    /**
+     * @brief Set the system hostname.
+     * @param hostname The desired hostname.
+     * @return The set hostname.
+     */
+    static std::string setHostname(const std::string &hostname)
+    {
+        // For QNX, simply write "HOSTNAME=new_hostname" to /boot/network
+        std::string networkConfigPath = "/boot/network";
+        FILE *file = fopen(networkConfigPath.c_str(), "a");
+        if (file)
+        {
+            fprintf(file, "HOSTNAME=%s\n", hostname.c_str());
+            fclose(file);
+            return hostname;
+        }
+        else
+        {
+            std::cerr << "Error: Unable to open network configuration file: " << networkConfigPath << std::endl;
+            exit(1);
+        }
+    }
 
     /**
      * @brief Get a list of available keyboard layouts.
@@ -64,13 +87,12 @@ public:
             "pl_PL_102",
             "pt_PT_102",
             "se_SE_102",
-            "sk_SK_102"
-        };
+            "sk_SK_102"};
     }
 
     /**
      * @brief Set the keyboard layout in the configuration.
-     * @param layout The keyboard layout to set (e.g., `en_CA_101`, `fr_CA_102`).   
+     * @param layout The keyboard layout to set (e.g., `en_CA_101`, `fr_CA_102`).
      * @return std::string The set keyboard layout.
      */
     std::string setKeyboardLayout(const std::string &layout);

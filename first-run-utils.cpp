@@ -40,6 +40,16 @@ bool FirstRunUtils::isFirstRun()
     }
 }
 
+std::string FirstRunUtils::firstTimeSetupHostname()
+{
+    std::string hostname;
+    std::cout << "Enter your preferred hostname (e.g., qnxpi): ";
+    std::cin >> hostname;
+    SetupUtils::setHostname(hostname);
+    std::cout << "Hostname set to: " << hostname << std::endl;
+    return hostname;
+}
+
 std::string FirstRunUtils::firstTimeSetupKeyboardLayout(SetupUtils &setupUtils)
 {
     // Display available keyboard layouts.

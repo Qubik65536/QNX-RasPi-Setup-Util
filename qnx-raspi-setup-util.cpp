@@ -29,6 +29,10 @@ int main()
     {
         std::cout << "First time run detected. Performing initial setup..." << std::endl;
 
+        // Set up hostname.
+        std::string hostname = FirstRunUtils::firstTimeSetupHostname();
+        std::cout << "Hostname set to: " << hostname << std::endl;
+
         // Initialize SetupUtils for configuring graphics config.
         SetupUtils setupUtils(TESTING_MODE ? TEST_GRAPHICS_CONFIG_PATH : GRAPHICS_CONFIG_PATH);
         
