@@ -74,6 +74,21 @@ public:
      * @return std::string The set keyboard layout.
      */
     std::string setKeyboardLayout(const std::string &layout);
+
+    /**
+     * @brief Set the display configuration.
+     * @param width The display width in pixels (e.g., 1920).
+     * @param height The display height in pixels (e.g., 1080).
+     * @param refreshRate The display refresh rate in Hz (e.g., 60).
+     * @param stackSize The stack size for the display server (default: 65536).
+     * @param forceComposition Whether to force composition (default: true).
+     * @param cursor Whether to enable the cursor (default: true, which is to be 'on' in the actual configuration).
+     * @return std::string The set display configuration.
+     */
+    std::string setDisplay(
+        const int width, const int height, const int refreshRate,
+        const int stackSize = 65536, const bool forceComposition = true, const bool cursor = true
+    );
 };
 
 #endif // SETUP_UTILS_HPP

@@ -27,6 +27,18 @@ namespace FirstRunUtils
      * @return std::string The set up keyboard layout.
      */
     std::string firstTimeSetupKeyboardLayout(SetupUtils &setupUtils);
+
+    /**
+     * @brief Perform first-time setup for display configuration.
+     *
+     * This function allows user to set up their preferred display settings
+     * through interactive prompts.
+     * 
+     * @param setupUtils Reference to SetupUtils instance for configuration management.
+     *
+     * @return std::string The set up display configuration.
+     */
+    std::string firstTimeSetupDisplay(SetupUtils &setupUtils);
 }
 
 #endif // FIRST_RUN_UTILS_HPP

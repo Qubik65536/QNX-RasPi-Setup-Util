@@ -14,7 +14,7 @@ const std::string TEST_GRAPHICS_CONFIG_PATH = "test-graphics-rpi4.conf";
 int main()
 {
     // This program can only be run as root.
-    if (geteuid() != 0)
+    if (!TESTING_MODE && geteuid() != 0)
     {
         std::cerr << "This program must be run as root. Please use su to switch to root user." << std::endl;
         return 1;
@@ -34,6 +34,8 @@ int main()
         
         // Set up keyboard layout.
         std::string keyboardLayout = FirstRunUtils::firstTimeSetupKeyboardLayout(setupUtils);
+        // Set up display configuration.
+        std::string displayConfig = FirstRunUtils::firstTimeSetupDisplay(setupUtils);
 
         // Save configuration changes.
         if (!setupUtils.saveConfig())

@@ -63,3 +63,19 @@ std::string FirstRunUtils::firstTimeSetupKeyboardLayout(SetupUtils &setupUtils)
     std::cout << "Keyboard layout set to: " << selectedLayout << std::endl;
     return selectedLayout;
 }
+
+std::string FirstRunUtils::firstTimeSetupDisplay(SetupUtils &setupUtils)
+{
+    int width, height, refreshRate;
+    std::cout << "Enter display width (e.g., 1920): ";
+    std::cin >> width;
+    std::cout << "Enter display height (e.g., 1080): ";
+    std::cin >> height;
+    std::cout << "Enter display refresh rate (e.g., 60): ";
+    std::cin >> refreshRate;
+    
+    setupUtils.setDisplay(width, height, refreshRate);
+    std::cout << "Display configuration set to: " 
+              << width << "x" << height << " @ " << refreshRate << "Hz" << std::endl;
+    return std::to_string(width) + "x" + std::to_string(height) + "@" + std::to_string(refreshRate) + "Hz";
+}
