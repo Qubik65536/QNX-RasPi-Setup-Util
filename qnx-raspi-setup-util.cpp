@@ -6,7 +6,7 @@
 #include <iostream>
 #include <unistd.h>
 
-const bool TESTING_MODE = false;
+const bool TESTING_MODE = true;
 
 const std::string GRAPHICS_CONFIG_PATH = "/system/lib/graphics/rpi4-drm/graphics-rpi4.conf";
 const std::string TEST_GRAPHICS_CONFIG_PATH = "test-graphics-rpi4.conf";
@@ -47,6 +47,9 @@ int main()
             std::cerr << "Error: Failed to save configuration." << std::endl;
             exit(1);
         }
+
+        // Set up timezone.
+        std::string timezone = FirstRunUtils::firstTimeSetupTimezone();
 
         // TODO: Handle first-time setup tasks here.
 

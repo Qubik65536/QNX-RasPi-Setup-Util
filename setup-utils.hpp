@@ -87,7 +87,8 @@ public:
             "pl_PL_102",
             "pt_PT_102",
             "se_SE_102",
-            "sk_SK_102"};
+            "sk_SK_102"
+        };
     }
 
     /**
@@ -111,6 +112,24 @@ public:
         const int width, const int height, const int refreshRate,
         const int stackSize = 65536, const bool forceComposition = true, const bool cursor = true
     );
+
+    /**
+     * @brief Set the system timezone.
+     * @param timezone The desired timezone (e.g., `America/Toronto`, `UTC`, `GMT+2`, `-05:00`).
+     * @return std::string The set timezone.
+     * @note This function uses the `_CS_TIMEZONE` to set the timezone in QNX. It is a QNX-only implementation.
+     */
+    static std::string setTimezone(const std::string &timezone)
+    {
+       // In QNX, timezone is set via `setconf _CS_TIMEZONE timezone` command.
+       std::string command = "setconf _CS_TIMEZONE " + timezone;
+       if (system(command.c_str()) != 0)
+       {
+           std::cerr << "Error: Unable to set timezone to " << timezone << std::endl;
+           exit(1);
+       }
+       return timezone;
+    }
 };
 
 #endif // SETUP_UTILS_HPP

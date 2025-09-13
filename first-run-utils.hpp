@@ -49,6 +49,16 @@ namespace FirstRunUtils
      * @return std::string The set up display configuration.
      */
     std::string firstTimeSetupDisplay(SetupUtils &setupUtils);
+
+    /**
+     * @brief Perform first-time setup for timezone.
+     *
+     * This function allows user to set up their preferred timezone
+     * through interactive prompts.
+     * 
+     * @return std::string The set up timezone.
+     */
+    std::string firstTimeSetupTimezone();
 }
 
 #endif // FIRST_RUN_UTILS_HPP

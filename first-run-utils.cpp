@@ -1,4 +1,5 @@
 #include "first-run-utils.hpp"
+#include "timezone-helper.hpp"
 #include <iostream>
 
 bool FirstRunUtils::isFirstRun()
@@ -88,4 +89,27 @@ std::string FirstRunUtils::firstTimeSetupDisplay(SetupUtils &setupUtils)
     std::cout << "Display configuration set to: " 
               << width << "x" << height << " @ " << refreshRate << "Hz" << std::endl;
     return std::to_string(width) + "x" + std::to_string(height) + "@" + std::to_string(refreshRate) + "Hz";
+}
+
+std::string FirstRunUtils::firstTimeSetupTimezone()
+{
+    std::string timezone;
+    bool valid = false;
+
+    while(!valid)
+    {
+        std::cout << "Enter your preferred timezone (e.g., America/Toronto, UTC, +05:30): ";
+        std::cin >> timezone;
+        // Validate the timezone input.
+        if (!TimezoneHelper::isValidTimezone(timezone))
+        {
+            std::cerr << "Invalid timezone format. Please try again." << std::endl;
+            continue;
+        }
+        valid = true; // Mark as valid to exit the loop
+    }
+
+    std::string result = SetupUtils::setTimezone(timezone);
+    std::cout << "Timezone set to: " << timezone << std::endl;
+    return result;
 }

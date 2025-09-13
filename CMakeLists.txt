@@ -13,12 +13,14 @@ set(HEADERS
   config-editor.h
   first-run-utils.h
   setup-utils.h
+  timezone-helper.hpp
 )
 set(SOURCES
   config-editor.cpp
   first-run-utils.cpp
   qnx-raspi-setup-util.cpp
   setup-utils.cpp
+  timezone-helper.cpp
 )
 add_executable(${PROJECT_NAME} ${SOURCES})
 
