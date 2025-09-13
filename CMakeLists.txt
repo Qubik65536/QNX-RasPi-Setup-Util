@@ -9,7 +9,17 @@ FetchContent_Declare(ftxui
 )
 FetchContent_MakeAvailable(ftxui)
 
-set(SOURCES qnx-raspi-setup-util.cpp)
+set(HEADERS
+  config-editor.h
+  first-run-utils.h
+  setup-utils.h
+)
+set(SOURCES
+  config-editor.cpp
+  first-run-utils.cpp
+  qnx-raspi-setup-util.cpp
+  setup-utils.cpp
+)
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME}
