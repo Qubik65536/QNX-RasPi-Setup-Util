@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "template": {
+    "projectId": "qnx-raspi-setup-util",
+    "artifactName": "qnx-raspi-setup-util",
+    "buildType": "CMake",
+    "language": "cpp",
+    "archlist": "x86_64,aarch64le",
+    "artifactType": "Executable"
+  }
+}
