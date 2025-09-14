@@ -50,7 +50,7 @@ int main()
 
         // Initialize SetupUtils for configuring graphics config.
         SetupUtils setupUtils(TESTING_MODE ? TEST_GRAPHICS_CONFIG_PATH : GRAPHICS_CONFIG_PATH);
-        
+
         // Set up keyboard layout.
         std::string keyboardLayout = FirstRunUtils::firstTimeSetupKeyboardLayout(setupUtils);
         // Set up display configuration.
@@ -71,7 +71,8 @@ int main()
 
         // TODO: Handle first-time setup tasks here.
 
-        if (TESTING_MODE) exit(0); // Exit after first run setup in testing mode.
+        if (TESTING_MODE)
+            exit(0); // Exit after first run setup in testing mode.
 
         // Reboot the RasPi to apply changes.
         std::cout << "You need to reboot the system for changes to take effect." << std::endl;
@@ -98,7 +99,40 @@ int main()
     }
     else
     {
-        std::cout << "Thank you for using the QNX Raspberry Pi Setup Utility!" << std::endl;
-        return 0;
+        std::string hostname = SetupUtils::getHostname();
+        std::string username = getenv("USER");
+        std::cout << "Welcome back to " << hostname << ", " << username << "!" << std::endl;
+        std::cout << std::endl;
+
+        char option;
+        while (true)
+        {
+            std::cout << "This is the QNX Raspberry Pi Setup Utility." << std::endl;
+            std::cout << "Please use the menu below to navigate through different setup options." << std::endl;
+            std::cout << std::endl;
+            std::cout << "1. Network Settings" << std::endl;
+            std::cout << "2. Display Settings" << std::endl;
+            std::cout << "3. Keyboard Layout" << std::endl;
+            std::cout << "4. Timezone Configuration" << std::endl;
+            std::cout << "Select an option (1-4) or 'q' to quit: ";
+            std::cin >> option;
+            switch (option)
+            {
+            case '1':
+                break;
+            case '2':
+                break;
+            case '3':
+                break;
+            case '4':
+                break;
+            case 'q':
+            case 'Q':
+                std::cout << "Thank you for using the QNX Raspberry Pi Setup Utility!" << std::endl;
+                exit(0);
+            default:
+                std::cerr << "Invalid option. Please try again." << std::endl;
+            }
+        }
     }
 }

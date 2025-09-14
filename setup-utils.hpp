@@ -36,6 +36,37 @@ public:
     bool saveConfig();
 
     /**
+     * @brief Get the current system hostname.
+     * @return The current hostname as a string.
+     */
+    static std::string getHostname()
+    {
+        // For QNX, the hostname is saved in /boot/network
+        std::string networkConfigPath = "/boot/network";
+        FILE *file = fopen(networkConfigPath.c_str(), "r");
+        if (file)
+        {
+            char buffer[256];
+            while (fgets(buffer, sizeof(buffer), file))
+            {
+                std::string line(buffer);
+                if (line.find("HOSTNAME=") == 0)
+                {
+                    fclose(file);
+                    return line.substr(9, line.find_first_of("\n\r", 9) - 9);
+                }
+            }
+            fclose(file);
+            return "unknown";
+        }
+        else
+        {
+            std::cerr << "Error: Unable to open network configuration file: " << networkConfigPath << std::endl;
+            exit(1);
+        }
+    }
+
+    /**
      * @brief Set the system hostname.
      * @param hostname The desired hostname.
      * @return The set hostname.
