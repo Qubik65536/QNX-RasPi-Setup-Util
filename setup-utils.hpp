@@ -87,8 +87,7 @@ public:
             "pl_PL_102",
             "pt_PT_102",
             "se_SE_102",
-            "sk_SK_102"
-        };
+            "sk_SK_102"};
     }
 
     /**
@@ -110,8 +109,7 @@ public:
      */
     std::string setDisplay(
         const int width, const int height, const int refreshRate,
-        const int stackSize = 65536, const bool forceComposition = true, const bool cursor = true
-    );
+        const int stackSize = 65536, const bool forceComposition = true, const bool cursor = true);
 
     /**
      * @brief Set the system timezone.
@@ -121,15 +119,33 @@ public:
      */
     static std::string setTimezone(const std::string &timezone)
     {
-       // In QNX, timezone is set via `setconf _CS_TIMEZONE timezone` command.
-       std::string command = "setconf _CS_TIMEZONE " + timezone;
-       if (system(command.c_str()) != 0)
-       {
-           std::cerr << "Error: Unable to set timezone to " << timezone << std::endl;
-           exit(1);
-       }
-       return timezone;
+        // In QNX, timezone is set via `setconf _CS_TIMEZONE timezone` command.
+        std::string command = "setconf _CS_TIMEZONE " + timezone;
+        if (system(command.c_str()) != 0)
+        {
+            std::cerr << "Error: Unable to set timezone to " << timezone << std::endl;
+            exit(1);
+        }
+        return timezone;
     }
+
+    /**
+     * @brief Update Wi-Fi configuration in a wpa_supplicant.conf file
+     *
+     * This function updates the SSID, key management type, and pre-shared key (PSK)
+     * in a wpa_supplicant.conf file. It reads the existing configuration, modifies
+     * the relevant fields, and writes the updated configuration back to the file.
+     *
+     * @param configPath Path to the wpa_supplicant.conf file
+     * @param newSSID New SSID to set
+     * @param newKeyMgmt New key management type (e.g., WPA-PSK)
+     * @param newPSK New pre-shared key (password)
+     * @return true if the update was successful, false otherwise
+     */
+    static bool updateWifiConfig(const std::string &configPath,
+                          const std::string &newSSID,
+                          const std::string &newKeyMgmt,
+                          const std::string &newPSK);
 };
 
 #endif // SETUP_UTILS_HPP

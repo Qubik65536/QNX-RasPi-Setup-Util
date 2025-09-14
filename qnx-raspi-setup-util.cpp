@@ -6,7 +6,7 @@
 #include <iostream>
 #include <unistd.h>
 
-const bool TESTING_MODE = true;
+const bool TESTING_MODE = false;
 
 const std::string GRAPHICS_CONFIG_PATH = "/system/lib/graphics/rpi4-drm/graphics-rpi4.conf";
 const std::string TEST_GRAPHICS_CONFIG_PATH = "test-graphics-rpi4.conf";
@@ -50,6 +50,9 @@ int main()
 
         // Set up timezone.
         std::string timezone = FirstRunUtils::firstTimeSetupTimezone();
+
+        // Set up Wi-Fi configuration.
+        std::string wifiConfig = FirstRunUtils::firstTimeSetupWifi();
 
         // TODO: Handle first-time setup tasks here.
 

@@ -113,3 +113,26 @@ std::string FirstRunUtils::firstTimeSetupTimezone()
     std::cout << "Timezone set to: " << timezone << std::endl;
     return result;
 }
+
+std::string FirstRunUtils::firstTimeSetupWifi()
+{
+    std::string ssid, keyMgmt, psk;
+    std::cout << "Enter Wi-Fi SSID: ";
+    std::cin >> ssid;
+    std::cout << "Enter Key Management (e.g., WPA-PSK): ";
+    std::cin >> keyMgmt;
+    std::cout << "Enter Pre-Shared Key (Password): ";
+    std::cin >> psk;
+
+    const std::string wifiConfigPath = "/boot/wpa_supplicant.conf";
+    if (SetupUtils::updateWifiConfig(wifiConfigPath, ssid, keyMgmt, psk))
+    {
+        std::cout << "Wi-Fi configuration updated successfully." << std::endl;
+        return ssid;
+    }
+    else
+    {
+        std::cerr << "Failed to update Wi-Fi configuration." << std::endl;
+        throw std::runtime_error("Wi-Fi configuration update failed.");
+    }
+}

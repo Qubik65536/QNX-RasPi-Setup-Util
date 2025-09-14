@@ -59,6 +59,16 @@ namespace FirstRunUtils
      * @return std::string The set up timezone.
      */
     std::string firstTimeSetupTimezone();
+
+    /**
+     * @brief Perform first-time setup for Wi-Fi configuration.
+     * 
+     * This function allows user to set up their Wi-Fi settings
+     * through interactive prompts.
+     * 
+     * @return std::string The set up Wi-Fi SSID.
+     */
+    std::string firstTimeSetupWifi();
 }
 
 #endif // FIRST_RUN_UTILS_HPP
