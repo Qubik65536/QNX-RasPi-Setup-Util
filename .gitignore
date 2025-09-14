@@ -21,3 +21,6 @@ cmake-build-*
 
 # Compiled Binaries
 *.qnx
+
+# File System
+.DS_Store
