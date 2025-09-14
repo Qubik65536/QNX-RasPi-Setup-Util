@@ -13,11 +13,27 @@ const std::string TEST_GRAPHICS_CONFIG_PATH = "test-graphics-rpi4.conf";
 
 int main()
 {
+    bool isUTF8 = false;
+
     // This program can only be run as root.
     if (!TESTING_MODE && geteuid() != 0)
     {
         std::cerr << "This program must be run as root. Please use su to switch to root user." << std::endl;
         return 1;
+    }
+
+    // Use special characters to test UTF-8 support in terminal. Charset{"╭", "╮", "╰", "╯", "─", "│"}.
+    std::cout << "╭──────────────────────────────────╮" << std::endl;
+    std::cout << "│  QNX Raspberry Pi Setup Utility  │" << std::endl;
+    std::cout << "╰──────────────────────────────────╯" << std::endl;
+    std::cout << std::endl;
+    // Ask the user if they can see the box above correctly.
+    std::cout << "Can you see a box, around the text 'QNX Raspberry Pi Setup Utility', with rounded corners above? (y/n): ";
+    char boxResponse;
+    std::cin >> boxResponse;
+    if (boxResponse == 'y' || boxResponse == 'Y')
+    {
+        isUTF8 = true;
     }
 
     if (TESTING_MODE)
