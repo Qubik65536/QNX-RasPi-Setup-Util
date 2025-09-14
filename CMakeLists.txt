@@ -14,6 +14,7 @@ set(HEADERS
   first-run-utils.h
   setup-utils.h
   timezone-helper.hpp
+  utf8-tui.hpp
 )
 set(SOURCES
   config-editor.cpp
@@ -21,6 +22,7 @@ set(SOURCES
   qnx-raspi-setup-util.cpp
   setup-utils.cpp
   timezone-helper.cpp
+  utf8-tui.cpp
 )
 add_executable(${PROJECT_NAME} ${SOURCES})
 

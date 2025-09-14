@@ -1,8 +1,7 @@
 #include "config-editor.hpp"
 #include "first-run-utils.hpp"
 #include "setup-utils.hpp"
-#include <ftxui/dom/elements.hpp>
-#include <ftxui/screen/screen.hpp>
+#include "utf8-tui.hpp"
 #include <iostream>
 #include <unistd.h>
 
@@ -93,15 +92,13 @@ int main()
         }
     }
 
-    using namespace ftxui;
-
-    Element document = hbox({
-        text("left") | border,
-        text("middle") | border | flex,
-        text("right") | border,
-    });
-
-    auto screen = Screen::Create(Dimension::Full(), Dimension::Fit(document));
-    Render(screen, document);
-    screen.Print();
+    if (isUTF8)
+    {
+        return UTF8TUI::run();
+    }
+    else
+    {
+        std::cout << "Thank you for using the QNX Raspberry Pi Setup Utility!" << std::endl;
+        return 0;
+    }
 }
